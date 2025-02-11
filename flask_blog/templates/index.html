@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-container {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .posts-container {
+            flex: 2;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .post {
+            background: #fff;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Simple Blog</h1>
+    <div class="container">
+        <div class="form-container">
+            <h2>Create a Post</h2>
+            <input type="text" id="title" placeholder="Enter post title" required>
+            <textarea id="content" placeholder="Enter post content" required></textarea>
+            <button onclick="createPost()">Create Post</button>
+        </div>
+
+        <div class="posts-container">
+            <h2>Posts</h2>
+            <div id="postsList"></div>
+        </div>
+    </div>
+
+    <script>
+        function createPost() {
+            const title = document.getElementById("title").value;
+            const content = document.getElementById("content").value;
+
+            if (title.trim() === "" || content.trim() === "") {
+                alert("Title and content cannot be empty!");
+                return;
+            }
+
+            const postContainer = document.createElement("div");
+            postContainer.classList.add("post");
+
+            postContainer.innerHTML = `
+                <h3>${title}</h3>
+                <p>${content}</p>
+                <button class="delete-btn" onclick="deletePost(this)">Delete</button>
+            `;
+
+            document.getElementById("postsList").appendChild(postContainer);
+
+            // Clear input fields after creating a post
+            document.getElementById("title").value = "";
+            document.getElementById("content").value = "";
+        }
+
+        function deletePost(button) {
+            button.parentElement.remove();
+        }
+    </script>
+
+</body>
+</html>
